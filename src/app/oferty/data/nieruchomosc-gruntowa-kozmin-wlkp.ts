@@ -8,11 +8,9 @@ export const nieruchomoscGruntowaKozminWlkp: Offer = {
   price: "398 000 zł",
   title: "Czarny Sad – działka z zabudowaniami",
   location: "Czarny Sad",
-  category: "działki",
   bedrooms: 0,
   bathrooms: 0,
   area: 5500,
-  addDate: "Dodano 5 dni temu",
   offerNo: "DZ-002",
   description: `Na sprzedaż nieruchomość gruntowa z zabudowaniami – Czarny Sad, gmina Koźmin Wielkopolski                                
 
