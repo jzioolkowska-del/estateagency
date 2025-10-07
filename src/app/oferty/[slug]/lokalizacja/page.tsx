@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import { findOfferBySlug } from "@/app/oferty/data";
 import { MapPin } from "lucide-react";
 
-export default function OfferLocationPage({ params }: { params: { slug: string } }) {
-  const offer = findOfferBySlug(params.slug);
+export default async function OfferLocationPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const offer = findOfferBySlug(slug);
   if (!offer) return notFound();
 
   return (
