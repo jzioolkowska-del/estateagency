@@ -1,4 +1,4 @@
-import { Offer } from "../data";
+import type { Offer } from "../types";
 
 export const nieruchomoscGruntowaKozminWlkp: Offer = {
   slug: "nieruchomosc-gruntowa-kozmin-wlkp",
