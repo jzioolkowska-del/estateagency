@@ -86,10 +86,10 @@ export const PrintToPdfButton: React.FC<PrintToPdfButtonProps> = ({
       pdf.save(fileName);
 
       // Restore original styles
-      if (nav) nav.style.display = originalNavDisplay;
-      if (footer) footer.style.display = originalFooterDisplay;
-      if (sidebar) sidebar.style.display = originalSidebarDisplay;
-      if (buttonContainer) buttonContainer.style.display = originalButtonDisplay;
+      if (nav) nav.style.display = originalNavDisplay || '';
+      if (footer) footer.style.display = originalFooterDisplay || '';
+      if (sidebar) sidebar.style.display = originalSidebarDisplay || '';
+      if (buttonContainer) buttonContainer.style.display = originalButtonDisplay || '';
       if (target) {
         target.style.width = '';
         target.style.margin = '';
