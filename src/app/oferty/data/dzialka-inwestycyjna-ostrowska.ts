@@ -8,12 +8,10 @@ export const dzialkaInwestycyjnaOstrowska: Offer = {
   price: "1 709 155 zł",
   title: "Krotoszyn – działka inwestycyjna ul. Ostrowska",
   location: "Krotoszyn",
-  category: "działki",
   bedrooms: 0,
   bathrooms: 0,
   area: 5195,
   pricePerM2: "329 zł/m²",
-  addDate: "Dodano 3 miesiące temu",
   offerNo: "DZ-004",
   description: `Krotoszyn - ul. Ostrowska, działka inwestycyjna.
 
