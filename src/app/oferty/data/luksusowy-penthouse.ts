@@ -1,4 +1,21 @@
-import type { Offer } from "../types.js";
+// Temporary inline type definition - remove once src/app/oferty/types.ts is created
+type Offer = {
+  slug: string;
+  image: string;
+  alt: string;
+  type: string;
+  price: string;
+  title: string;
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  floor?: number;
+  pricePerM2: string;
+  offerNo: string;
+  description: string;
+  gallery: string[];
+};
 
 export const luksusowyPenthouse: Offer = {
   slug: "luksusowy-penthouse",
@@ -22,31 +39,19 @@ export const luksusowyPenthouse: Offer = {
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/M5-2-m79gmygm_page-0001.webp"
   ],
   description: `Na sprzedaż przestronne mieszkanie o powierzchni 55,73 m² położone na 2. piętrze nowoczesnego budynku deweloperskiego na zamkniętym i monitorowanym osiedlu w Krotoszynie.
-
 Układ mieszkania:
 salon z aneksem kuchennym – wygodny i doskonale doświetlony, z wyjściem na balkon,
-
 2 sypialnie, idealne jako pokoje dla rodziny, dzieci lub dodatkowy gabinet,
-
 łazienka,
-
 korytarz z miejscem na praktyczną zabudowę.
-
 Atuty nieruchomości:
 balkon 5,6 m² – idealny na relaks i spędzanie czasu na świeżym powietrzu,
-
 winda w budynku,
-
 darmowy parking dla mieszkańców,
-
 skrytki lokatorskie,
-
 plac zabaw dla dzieci,
-
 monitoring oraz zamknięty teren osiedla zapewniający bezpieczeństwo i komfort.
-
 Mieszkanie zostanie oddane do użytku latem 2026 roku.
-
 To doskonała propozycja dla osób poszukujących nowoczesnego, funkcjonalnego mieszkania w spokojnej i dobrze skomunikowanej części Krotoszyna.`,
   offerNo: "NR-007890"
 };
