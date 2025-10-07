@@ -10,7 +10,6 @@ export const przestrzonneMieszkanieRodzinne: Offer = {
   location: "Krotoszyn",
   bedrooms: 2,
   bathrooms: 1,
-  totalRooms: 3,
   area: 46.07,
   floor: 1,
   pricePerM2: "8 000 zł/m²",
