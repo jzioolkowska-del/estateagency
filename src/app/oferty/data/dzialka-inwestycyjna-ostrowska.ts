@@ -10,6 +10,7 @@ export const dzialkaInwestycyjnaOstrowska: Offer = {
   location: "Krotoszyn",
   bedrooms: 0,
   bathrooms: 0,
+  floor: 0,
   area: 5195,
   pricePerM2: "329 zł/m²",
   offerNo: "DZ-004",
