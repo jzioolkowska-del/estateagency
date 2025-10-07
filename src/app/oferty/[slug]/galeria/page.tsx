@@ -15,7 +15,7 @@ export default async function OfferGalleryPage({ params }: { params: Promise<{ s
     <div>
       <h2 className="text-2xl font-semibold mb-4">Galeria</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((src, i) => (
+        {images.map((src: string, i: number) => (
           <div key={i} className="relative aspect-video rounded-md overflow-hidden border bg-card">
             <Image src={src} alt={`${offer.alt} ${i + 1}`} fill className="object-cover" />
           </div>
