@@ -49,8 +49,6 @@ export const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 
-export type { Offer };
-
 export const properties: Offer[] = [
   lokalUslugowy,
   noweMieszkanie4624m2Krotoszyn,
