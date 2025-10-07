@@ -13,16 +13,7 @@ export const przestrzonneMieszkanieRodzinne: Offer = {
   area: 46.07,
   floor: 1,
   pricePerM2: "8 000 zł/m²",
-  yearBuilt: 2026,
-  addDate: "Dodano 2 tygodnie temu",
-  gallery: [
-    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/MPKR_02_PE-1-scaled.webp",
-    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/dji_fly_20250718_180302_70_1752854604672_photo_optimized-1-scaled%20(1).webp",
-    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/dji_fly_20250531_143744_47_1748695393888_photo_optimized-1-scaled.webp",
-    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/dji_fly_20250531_143858_48_1748695390147_photo_optimized-1-scaled.webp",
-    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/rob-1-1-scaled.webp",
-    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/M3-1-m79gikr7-scaled.webp"
-  ],
+  offerNo: "NR-002468",
   description: `Na sprzedaż komfortowe mieszkanie o powierzchni 46,07 m² położone na 1. piętrze nowoczesnego budynku deweloperskiego na zamkniętym i monitorowanym osiedlu w Krotoszynie.
 
 Układ mieszkania:
@@ -50,5 +41,12 @@ monitoring oraz zamknięty teren osiedla zapewniający bezpieczeństwo i komfort
 Mieszkanie zostanie oddane do użytku latem 2026 roku.
 
 To świetna propozycja dla osób ceniących nowoczesne rozwiązania, wygodę i spokojną lokalizację – w sercu rozwijającego się osiedla w Krotoszynie.`,
-  offerNo: "NR-002468"
+  gallery: [
+    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/MPKR_02_PE-1-scaled.webp",
+    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/dji_fly_20250718_180302_70_1752854604672_photo_optimized-1-scaled%20(1).webp",
+    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/dji_fly_20250531_143744_47_1748695393888_photo_optimized-1-scaled.webp",
+    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/dji_fly_20250531_143858_48_1748695390147_photo_optimized-1-scaled.webp",
+    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/rob-1-1-scaled.webp",
+    "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/M3-1-m79gikr7-scaled.webp"
+  ]
 };
