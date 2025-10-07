@@ -1,4 +1,5 @@
 import { MapPin, Bed, Bath, Square as SquareIcon } from "lucide-react";
+import type { Offer } from "./types.js";
 import { lokalUslugowy } from "./data/lokal-uslugowy-kozmin-wlkp";
 import { noweMieszkanie4624m2Krotoszyn } from "./data/nowe-mieszkanie-46-24-m2-krotoszyn";
 import { nowoczesneMieszkanieWCentrum } from "./data/nowoczesne-mieszkanie-w-centrum";
@@ -25,24 +26,7 @@ export const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 
-export type Offer = {
-  image: string;
-  alt: string;
-  type: string;
-  price: string;
-  title: string;
-  location: string;
-  bedrooms: number;
-  bathrooms: number;
-  area: number;
-  floor?: number;
-  pricePerM2?: string;
-  offerNo?: string;
-  gallery?: string[];
-  coordinates?: { lat: number; lng: number };
-  description?: string;
-  slug: string;
-};
+export type { Offer };
 
 export const properties: Offer[] = [
   lokalUslugowy,
