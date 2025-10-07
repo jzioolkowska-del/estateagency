@@ -1,4 +1,21 @@
-import type { Offer } from "../types.js";
+// Temporary inline type definition - remove once src/app/oferty/types.ts is created
+type Offer = {
+  slug: string;
+  image: string;
+  alt: string;
+  type: string;
+  price: string;
+  title: string;
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  floor?: number;
+  pricePerM2: string;
+  offerNo: string;
+  description: string;
+  gallery: string[];
+};
 
 export const przestrzonneMieszkanieRodzinne: Offer = {
   slug: "przestronne-mieszkanie-rodzinne",
@@ -15,31 +32,19 @@ export const przestrzonneMieszkanieRodzinne: Offer = {
   pricePerM2: "8 000 zł/m²",
   offerNo: "NR-002468",
   description: `Na sprzedaż komfortowe mieszkanie o powierzchni 46,07 m² położone na 1. piętrze nowoczesnego budynku deweloperskiego na zamkniętym i monitorowanym osiedlu w Krotoszynie.
-
 Układ mieszkania:
 salon z aneksem kuchennym – jasny i funkcjonalny, z wyjściem na balkon,
-
 2 sypialnie, które świetnie sprawdzą się jako pokoje dla rodziny, dzieci lub gabinet do pracy,
-
 łazienka,
-
 korytarz z miejscem na szafę w zabudowie.
-
 Atuty nieruchomości:
 balkon 5,2 m² – idealny na poranną kawę lub wieczorny odpoczynek,
-
 winda w budynku,
-
 darmowy parking dla mieszkańców,
-
 skrytki lokatorskie,
-
 plac zabaw dla dzieci,
-
 monitoring oraz zamknięty teren osiedla zapewniający bezpieczeństwo i komfort.
-
 Mieszkanie zostanie oddane do użytku latem 2026 roku.
-
 To świetna propozycja dla osób ceniących nowoczesne rozwiązania, wygodę i spokojną lokalizację – w sercu rozwijającego się osiedla w Krotoszynie.`,
   gallery: [
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/MPKR_02_PE-1-scaled.webp",
