@@ -1,4 +1,4 @@
-import type { Offer } from "../types";
+import type { Offer } from "../types.js";
 
 export const dzialkiInwestycyjneKozala2: Offer = {
   slug: "dzialki-inwestycyjne-kozala-2",
