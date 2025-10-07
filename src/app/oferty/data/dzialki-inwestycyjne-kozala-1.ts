@@ -1,4 +1,4 @@
-import type { Offer } from "../types.js";
+import type { Offer } from "../data";
 
 export const dzialkiInwestycyjneKozala1: Offer = {
   slug: "dzialki-inwestycyjne-kozala-1",
@@ -10,6 +10,7 @@ export const dzialkiInwestycyjneKozala1: Offer = {
   location: "Krotoszyn",
   bedrooms: 0,
   bathrooms: 0,
+  floor: 0,
   area: 7421,
   pricePerM2: "189 zł/m²",
   offerNo: "DZ-007",
