@@ -1,4 +1,20 @@
-import type { Offer } from "../types";
+// Temporary inline type definition - remove once src/app/oferty/types.ts is created
+type Offer = {
+  slug: string;
+  image: string;
+  alt: string;
+  type: string;
+  price: string;
+  title: string;
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  pricePerM2: string;
+  offerNo: string;
+  description: string;
+  gallery: string[];
+};
 
 export const lokalUslugowy: Offer = {
   slug: "lokal-uslugowy-kozmin-wlkp",
