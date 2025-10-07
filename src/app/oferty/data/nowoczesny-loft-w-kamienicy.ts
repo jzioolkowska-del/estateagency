@@ -1,4 +1,4 @@
-import { Offer } from "../data";
+import type { Offer } from "../types";
 
 export const nowoczesnyLoftWKamienicy: Offer = {
   slug: "nowoczesny-loft-w-kamienicy",
@@ -70,5 +70,6 @@ Cena parkingu w garażu podziemnym + box / skrytka (7.5m2) 60 tyś zł.
 KUPUJĄCY NIE PŁACI PROWIZJI !
 KUPUJĄCY NIE PŁACI VAT !
 
-Niniejsze ogłoszenie ma charakter wyłącznie informacyjny i nie stanowi oferty w rozumieniu przepisu art. 66 Kodeksu Cywilnego.`
+Niniejsze ogłoszenie ma charakter wyłącznie informacyjny i nie stanowi oferty w rozumieniu przepisu art. 66 Kodeksu Cywilnego.`,
+  offerNo: "AP-006"
 };
