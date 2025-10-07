@@ -8,12 +8,10 @@ export const dzialkaRekreacyjnaRod: Offer = {
   price: "42 000 zł",
   title: "Krotoszyn – działka rekreacyjna",
   location: "Krotoszyn",
-  category: "działki",
   bedrooms: 0,
   bathrooms: 0,
   area: 440,
   pricePerM2: "95.45 zł/m²",
-  addDate: "Dodano 3 miesiące temu",
   offerNo: "DZ-005",
   description: `Krotoszyn - działka rekreacyjna ROD
 
