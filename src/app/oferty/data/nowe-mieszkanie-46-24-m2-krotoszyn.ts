@@ -1,4 +1,4 @@
-import { Offer } from "../data";
+import type { Offer } from "../types.js";
 
 export const noweMieszkanie4624m2Krotoszyn: Offer = {
   slug: "nowe-mieszkanie-46-24-m2-krotoszyn",
