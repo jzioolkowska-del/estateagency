@@ -1,5 +1,5 @@
 import { MapPin, Bed, Bath, Square as SquareIcon } from "lucide-react";
-import type { Offer } from "./types.js";
+import type { Offer } from "./types";
 import { lokalUslugowy } from "./data/lokal-uslugowy-kozmin-wlkp";
 import { noweMieszkanie4624m2Krotoszyn } from "./data/nowe-mieszkanie-46-24-m2-krotoszyn";
 import { nowoczesneMieszkanieWCentrum } from "./data/nowoczesne-mieszkanie-w-centrum";
