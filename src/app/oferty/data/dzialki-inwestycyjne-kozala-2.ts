@@ -8,12 +8,10 @@ export const dzialkiInwestycyjneKozala2: Offer = {
   price: "722 343 zł",
   title: "Działki inwestycyjne / budowlane, blisko DK15, Krotoszyn ul. Kozala",
   location: "Krotoszyn",
-  category: "działki",
   bedrooms: 0,
   bathrooms: 0,
   area: 6627,
   pricePerM2: "109 zł/m²",
-  addDate: "Dodano 7 miesięcy temu",
   offerNo: "DZ-008",
   description: `Działki inwestycyjne – Krotoszyn, ul. Kozala
 Na sprzedaż dwie atrakcyjne działki inwestycyjne z miejscowym planem zagospodarowania przestrzennego, położone w Krotoszynie przy ul. Kozala, zaledwie 1800 m od centrum miasta.
