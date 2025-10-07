@@ -68,12 +68,6 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ sl
                   <p className="font-medium">{offer.bathrooms}</p>
                 </div>
               }
-              {offer.addDate &&
-              <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Data dodania</p>
-                <p className="font-medium">{offer.addDate}</p>
-              </div>
-              }
               <div className="space-y-1">
                 <p className="text-sm text-muted-foreground">Numer oferty</p>
                 <p className="font-medium">{offer.offerNo}</p>
