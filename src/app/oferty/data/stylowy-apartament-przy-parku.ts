@@ -1,4 +1,21 @@
-import type { Offer } from "../types.js";
+// Temporary inline type definition - remove once src/app/oferty/types.ts is created
+type Offer = {
+  slug: string;
+  image: string;
+  alt: string;
+  type: string;
+  price: string;
+  title: string;
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  floor?: number;
+  pricePerM2: string;
+  offerNo: string;
+  description: string;
+  gallery: string[];
+};
 
 export const stylowyApartamentPrzyParku: Offer = {
   slug: "stylowy-apartament-przy-parku",
@@ -23,30 +40,18 @@ export const stylowyApartamentPrzyParku: Offer = {
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/rzut-projekt-scaled.webp"
   ],
   description: `Na sprzedaż atrakcyjne mieszkanie o powierzchni 53,11 m² zlokalizowane na parterze nowoczesnego budynku deweloperskiego na zamkniętym i monitorowanym osiedlu w Krotoszynie.
-
 Układ mieszkania:
 salon z aneksem kuchennym – przestronny i jasny, z wyjściem do ogródka,
-
 2 sypialnie, idealne dla rodziny lub jako dodatkowy pokój do pracy,
-
 łazienka,
-
 korytarz z miejscem na szafę w zabudowie.
-
 Atuty nieruchomości:
 ogród o powierzchni 91 m² – ogrodzony siatką, pięknie nasłonechniony, idealny na relaks i spotkania na świeżym powietrzu,
-
 winda w budynku,
-
 darmowy parking dla mieszkańców,
-
 skrytki lokatorskie,
-
 plac zabaw dla dzieci,
-
 monitoring oraz zamknięty teren osiedla zapewniający bezpieczeństwo i komfort.
-
 Mieszkanie zostanie oddane do użytku latem 2026 roku.
-
 To doskonała propozycja dla osób szukających komfortu nowoczesnego mieszkania z dużym ogrodem w spokojnej i dobrze skomunikowanej części Krotoszyna.`
 };
