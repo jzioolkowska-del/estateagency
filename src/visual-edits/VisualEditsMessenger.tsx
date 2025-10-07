@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-
 import { useEffect, useState, useRef } from "react";
 
 export const CHANNEL = "ORCHIDS_HOVER_v1" as const;
@@ -10,7 +9,8 @@ const FOCUSED_ELEMENT_KEY = "orchids_focused_element" as const;
 // Deduplicate helper for high-frequency traffic (HIT / FOCUS_MOVED / SCROLL)
 // -----------------------------------------------------------------------------
 let _orchidsLastMsg = "";
-const postMessageDedup = (data: any) => {
+
+const postMessageDedup = (data: unknown) => {
   try {
     const key = JSON.stringify(data);
     if (key === _orchidsLastMsg) return; // identical – drop
@@ -18,7 +18,7 @@ const postMessageDedup = (data: any) => {
   } catch {
     // if stringify fails, fall through
   }
-  window.parent.postMessage(data, "*");
+  (window.parent as any).postMessage(data, "*");
 };
 
 export type ParentToChild =
@@ -167,7 +167,6 @@ const isTextEditable = (element: HTMLElement): boolean => {
     "a",
     "button",
   ];
-
   // Check if it's already contentEditable or an input/textarea
   if (
     element.contentEditable === "true" ||
@@ -176,7 +175,6 @@ const isTextEditable = (element: HTMLElement): boolean => {
   ) {
     return true;
   }
-
   // Allow editing if element contains text and is an editable tag
   // Only allow editing if element has at most 1 child OR has direct text content
   if (editableTags.includes(tagName) && element.textContent?.trim()) {
@@ -184,7 +182,6 @@ const isTextEditable = (element: HTMLElement): boolean => {
     const hasDirectText = Array.from(element.childNodes).some(
       (node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim()
     );
-
     // Allow editing if:
     // 1. Element has no children (pure text element)
     // 2. Element has 1 or fewer children AND has direct text content
@@ -195,7 +192,6 @@ const isTextEditable = (element: HTMLElement): boolean => {
       return true;
     }
   }
-
   return false;
 };
 
@@ -217,14 +213,11 @@ const parseOrchidsId = (
   // Format: "filepath:line:column"
   const parts = orchidsId.split(":");
   if (parts.length < 3) return null;
-
   // The file path might contain colons, so we need to handle that
   const column = parseInt(parts.pop() || "0");
   const line = parseInt(parts.pop() || "0");
   const filePath = parts.join(":"); // Rejoin the remaining parts as the file path
-
   if (isNaN(line) || isNaN(column)) return null;
-
   return { filePath, line, column };
 };
 
@@ -260,7 +253,6 @@ const getCurrentStyles = (
   gap?: string;
 } => {
   const computed = window.getComputedStyle(element);
-
   // Helper to normalize values and provide defaults
   const normalizeValue = (value: string, property: string): string => {
     // Handle background color - if it's transparent or rgba(0,0,0,0), return "transparent"
@@ -274,12 +266,10 @@ const getCurrentStyles = (
         return "transparent";
       }
     }
-
     // Handle background image - if none, return "none"
     if (property === "backgroundImage" && (value === "none" || value === "")) {
       return "none";
     }
-
     // Handle text decoration - if none, return "none"
     if (property === "textDecoration") {
       // Some browsers return complex values like "none solid rgb(0, 0, 0)"
@@ -287,12 +277,10 @@ const getCurrentStyles = (
         return "none";
       }
     }
-
     // Handle font style - if normal, return "normal"
     if (property === "fontStyle" && (value === "normal" || value === "")) {
       return "normal";
     }
-
     // Handle font weight - normalize to standard values
     if (property === "fontWeight") {
       const weight = parseInt(value);
@@ -301,12 +289,10 @@ const getCurrentStyles = (
       }
       return value || "400";
     }
-
     // Handle opacity - if 1, return "1"
     if (property === "opacity" && (value === "1" || value === "")) {
       return "1";
     }
-
     // Handle spacing values (padding/margin) - if 0px, return "0"
     if (
       (property.includes("padding") || property.includes("margin")) &&
@@ -314,12 +300,10 @@ const getCurrentStyles = (
     ) {
       return "0";
     }
-
     // Handle border radius - if 0px, return "0"
     if (property === "borderRadius" && (value === "0px" || value === "0")) {
       return "0";
     }
-
     // Handle letter spacing - if normal, return "normal"
     if (
       property === "letterSpacing" &&
@@ -327,15 +311,12 @@ const getCurrentStyles = (
     ) {
       return "normal";
     }
-
     // Handle gap - if normal, return "normal"
     if (property === "gap" && (value === "normal" || value === "0px")) {
       return "normal";
     }
-
     return value;
   };
-
   return {
     fontSize: normalizeValue(computed.fontSize, "fontSize"),
     color: normalizeValue(computed.color, "color"),
@@ -420,7 +401,6 @@ export default function HoverReceiver() {
     height: number;
   } | null>(null);
   const [isScrolling, setIsScrolling] = useState(false);
-
   // Tag labels for hover and focus overlays
   const [hoverTag, setHoverTag] = useState<string | null>(null);
   const [focusTag, setFocusTag] = useState<string | null>(null);
@@ -443,7 +423,6 @@ export default function HoverReceiver() {
   const hasStyleChangesRef = useRef<boolean>(false);
   const lastClickTimeRef = useRef<number>(0);
   const pendingCleanupRef = useRef<NodeJS.Timeout | null>(null);
-
   // Cache of loaded fonts
   const loadedFontFamilies = useRef<Set<string>>(new Set());
   // Map of elementId that already has a persistent font set
@@ -469,13 +448,11 @@ export default function HoverReceiver() {
         { type: CHANNEL, msg: "VISUAL_EDIT_MODE_ACK", active: true },
         "*"
       );
-
       // Also send a special message to indicate this was restored from localStorage
       window.parent.postMessage(
         { type: CHANNEL, msg: "VISUAL_EDIT_MODE_RESTORED", active: true },
         "*"
       );
-
       // Restore focused element after a short delay to ensure DOM is ready
       setTimeout(() => {
         if (typeof window !== "undefined") {
@@ -487,7 +464,6 @@ export default function HoverReceiver() {
               const element = document.querySelector(
                 `[data-orchids-id="${id}"]`
               ) as HTMLElement;
-
               if (element) {
                 // Simulate a click on the element to restore focus
                 const rect = element.getBoundingClientRect();
@@ -567,7 +543,6 @@ export default function HoverReceiver() {
       styleElementRef.current.remove();
       styleElementRef.current = null;
     }
-
     return () => {
       if (styleElementRef.current) {
         styleElementRef.current.remove();
@@ -615,15 +590,12 @@ export default function HoverReceiver() {
       console.warn("Attempting to handle text change for non-editing element");
       return;
     }
-
     // Get the orchids ID from the element to ensure we're working with the right one
     const orchidsId = element.getAttribute("data-orchids-id");
     if (!orchidsId) return;
-
     // For elements with children, only extract direct text content
     let newText: string;
     let oldText: string;
-
     if (element.childElementCount > 0) {
       // Element has children - only track direct text nodes
       newText = extractDirectTextContent(element);
@@ -635,11 +607,9 @@ export default function HoverReceiver() {
       newText = element.innerText || element.textContent || "";
       oldText = originalContentRef.current;
     }
-
     if (newText !== oldText) {
       const parsed = parseOrchidsId(orchidsId);
       if (!parsed) return;
-
       // Send text change message to parent
       const msg: ChildToParent = {
         type: CHANNEL,
@@ -651,9 +621,7 @@ export default function HoverReceiver() {
         line: parsed.line,
         column: parsed.column,
       };
-
       postMessageDedup(msg);
-
       // Update the original content reference
       originalContentRef.current = newText;
     }
@@ -666,24 +634,19 @@ export default function HoverReceiver() {
   ) => {
     const orchidsId = element.getAttribute("data-orchids-id");
     if (!orchidsId) return;
-
     const parsed = parseOrchidsId(orchidsId);
     if (!parsed) return;
-
     // Find ALL elements with the same orchids ID
     const allMatchingElements = document.querySelectorAll(
       `[data-orchids-id="${orchidsId}"]`
     ) as NodeListOf<HTMLElement>;
-
     // Apply styles to ALL matching elements for visual feedback
     allMatchingElements.forEach((el) => {
       Object.entries(styles).forEach(([property, value]) => {
         // Convert camelCase to kebab-case for CSS property names
         const cssProp = property.replace(/([A-Z])/g, "-$1").toLowerCase();
-
         // Handle special cases for default values
         let finalValue = value;
-
         // If backgroundColor is being set to transparent, use transparent keyword
         if (
           property === "backgroundColor" &&
@@ -693,7 +656,6 @@ export default function HoverReceiver() {
         ) {
           finalValue = "transparent";
         }
-
         // If removing styles (setting to default), remove the property
         if (
           (property === "backgroundColor" && finalValue === "transparent") ||
@@ -715,36 +677,28 @@ export default function HoverReceiver() {
         }
       });
     });
-
     // Store the applied styles
     const existingStyles = appliedStylesRef.current.get(orchidsId) || {};
     appliedStylesRef.current.set(orchidsId, { ...existingStyles, ...styles });
     hasStyleChangesRef.current = true;
-
     // Update the focus box after style change
     requestAnimationFrame(() => {
       updateFocusBox();
     });
-
     // Don't send to parent yet - wait for blur
   };
 
   // Send style changes on blur
   const handleStyleBlur = (element: HTMLElement) => {
     if (!hasStyleChangesRef.current) return;
-
     const orchidsId = element.getAttribute("data-orchids-id");
     if (!orchidsId) return;
-
     const parsed = parseOrchidsId(orchidsId);
     if (!parsed) return;
-
     const appliedStyles = appliedStylesRef.current.get(orchidsId);
     if (!appliedStyles || Object.keys(appliedStyles).length === 0) return;
-
     // Get className for breakpoint detection
     const className = element.getAttribute("class") || "";
-
     // Send style blur message to parent for Tailwind conversion
     const msg: ChildToParent = {
       type: CHANNEL,
@@ -756,9 +710,7 @@ export default function HoverReceiver() {
       line: parsed.line,
       column: parsed.column,
     };
-
     postMessageDedup(msg);
-
     // Reset style changes flag
     hasStyleChangesRef.current = false;
   };
@@ -768,18 +720,13 @@ export default function HoverReceiver() {
     // Use the stored image element reference if available
     const imgElement = focusedImageElementRef.current;
     if (!imgElement) return;
-
     const orchidsId = imgElement.getAttribute("data-orchids-id");
     if (!orchidsId) return;
-
     const parsed = parseOrchidsId(orchidsId);
     if (!parsed) return;
-
     const newSrc = normalizeImageSrc(imgElement.src);
     const oldSrc = normalizeImageSrc(originalSrcRef.current);
-
     if (!newSrc || newSrc === oldSrc) return; // nothing changed
-
     const msg: ChildToParent = {
       type: CHANNEL,
       msg: "IMAGE_BLUR",
@@ -790,9 +737,7 @@ export default function HoverReceiver() {
       line: parsed.line,
       column: parsed.column,
     };
-
     postMessageDedup(msg);
-
     originalSrcRef.current = newSrc; // reset baseline
     focusedImageElementRef.current = null; // clear reference
   };
@@ -800,14 +745,12 @@ export default function HoverReceiver() {
   // Listen for style and image updates from parent
   useEffect(() => {
     function handleMessage(e: MessageEvent) {
-      if (e.data?.type === "ORCHIDS_STYLE_UPDATE") {
-        const { elementId, styles } = e.data;
-
+      if ((e.data as any)?.type === "ORCHIDS_STYLE_UPDATE") {
+        const { elementId, styles } = e.data as any;
         // Find ALL elements with the same orchids ID
         const allMatchingElements = document.querySelectorAll(
           `[data-orchids-id="${elementId}"]`
         ) as NodeListOf<HTMLElement>;
-
         if (allMatchingElements.length > 0) {
           // If fontFamily is present ensure stylesheet loaded first
           const fam = styles.fontFamily || styles["fontFamily"];
@@ -821,27 +764,22 @@ export default function HoverReceiver() {
               loadedFontFamilies.current.add(familyKey);
             }
           }
-
           // If fontFamily made persistent via style update, remember so previews don't override
           if (fam) {
             persistentFontMap.current.set(elementId, fam);
-
             // Clear any existing timeout
             const existingTimeout =
               persistentFontTimeouts.current.get(elementId);
             if (existingTimeout) {
               clearTimeout(existingTimeout);
             }
-
             // Set timeout to clear persistent font after 2 seconds, allowing previews again
             const timeoutId = window.setTimeout(() => {
               persistentFontMap.current.delete(elementId);
               persistentFontTimeouts.current.delete(elementId);
             }, 2000);
-
             persistentFontTimeouts.current.set(elementId, timeoutId);
           }
-
           // Apply styles to ALL matching elements
           allMatchingElements.forEach((element) => {
             // Only update handleStyleChange for the focused element to track changes
@@ -853,10 +791,8 @@ export default function HoverReceiver() {
                 const cssProp = property
                   .replace(/([A-Z])/g, "-$1")
                   .toLowerCase();
-
                 // Handle special cases for default values
                 let finalValue = String(value);
-
                 // If backgroundColor is being set to transparent, use transparent keyword
                 if (
                   property === "backgroundColor" &&
@@ -866,7 +802,6 @@ export default function HoverReceiver() {
                 ) {
                   finalValue = "transparent";
                 }
-
                 // If removing styles (setting to default), remove the property
                 if (
                   (property === "backgroundColor" &&
@@ -891,8 +826,8 @@ export default function HoverReceiver() {
             }
           });
         }
-      } else if (e.data?.type === "ORCHIDS_IMAGE_UPDATE") {
-        const { elementId, src, oldSrc } = e.data;
+      } else if ((e.data as any)?.type === "ORCHIDS_IMAGE_UPDATE") {
+        const { elementId, src, oldSrc } = e.data as any;
         let element: HTMLImageElement | null = null;
         const candidates = document.querySelectorAll(
           `[data-orchids-id="${elementId}"]`
@@ -907,48 +842,39 @@ export default function HoverReceiver() {
             }
           }
         });
-
         if (!element) return;
-
         if ((element as HTMLElement).tagName.toLowerCase() === "img") {
           const imgEl = element as HTMLImageElement;
-
           {
             /*
              * Clear any existing responsive sources so the newly uploaded image
-             * always displays.  Some frameworks (e.g. Next.js) add a `srcset`
+             * always displays. Some frameworks (e.g. Next.js) add a `srcset`
              * attribute which can override `src` in certain viewport/device
              * scenarios, so we strip it out before setting the new source.
              */
             imgEl.removeAttribute("srcset");
             imgEl.srcset = "";
-
             imgEl.src = src;
-
             // Update baseline src so flush doesn't treat this as pending change
             originalSrcRef.current = normalizeImageSrc(src);
             focusedImageElementRef.current = imgEl;
-
             imgEl.onload = () => updateFocusBox();
           }
         }
-      } else if (e.data?.type === "RESIZE_ELEMENT") {
-        const { elementId, width, height } = e.data;
+      } else if ((e.data as any)?.type === "RESIZE_ELEMENT") {
+        const { elementId, width, height } = e.data as any;
         const element = document.querySelector(
           `[data-orchids-id="${elementId}"]`
         ) as HTMLElement;
-
         if (element && focusedElementRef.current === element) {
           // Apply temporary resize styles
           element.style.setProperty("width", `${width}px`, "important");
           element.style.setProperty("height", `${height}px`, "important");
-
           // Update focus box
           updateFocusBox();
         }
       }
     }
-
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   }, []);
@@ -956,16 +882,12 @@ export default function HoverReceiver() {
   // Handle resize
   const handleResizeStart = (e: React.MouseEvent, handle: string) => {
     if (!focusedElementRef.current) return;
-
     e.preventDefault();
     e.stopPropagation();
-
     const rect = focusedElementRef.current.getBoundingClientRect();
-
     // Clear any hover overlay when starting resize
     setHoverBox(null);
     lastHitElementRef.current = null;
-
     // Disable pointer events on body to prevent hover detection
     document.body.style.pointerEvents = "none";
     // Keep resize handles interactive
@@ -973,7 +895,6 @@ export default function HoverReceiver() {
     resizeHandles.forEach((handle) => {
       (handle as HTMLElement).style.pointerEvents = "auto";
     });
-
     setIsResizing(true);
     isResizingRef.current = true;
     setResizeHandle(handle);
@@ -994,20 +915,16 @@ export default function HoverReceiver() {
       !focusedElementRef.current
     )
       return;
-
     const handleMouseMove = (e: MouseEvent) => {
       const dx = e.clientX - resizeStart.x;
       const dy = e.clientY - resizeStart.y;
-
       let newWidth = resizeStart.width;
       let newHeight = resizeStart.height;
-
       // Calculate new dimensions based on handle
       if (resizeHandle.includes("e")) newWidth = resizeStart.width + dx;
       if (resizeHandle.includes("w")) newWidth = resizeStart.width - dx;
       if (resizeHandle.includes("s")) newHeight = resizeStart.height + dy;
       if (resizeHandle.includes("n")) newHeight = resizeStart.height - dy;
-
       // Get parent container for constraints
       const parent = focusedElementRef.current?.parentElement;
       if (parent) {
@@ -1017,27 +934,23 @@ export default function HoverReceiver() {
         const parentPaddingRight = parseFloat(parentStyles.paddingRight) || 0;
         const parentPaddingTop = parseFloat(parentStyles.paddingTop) || 0;
         const parentPaddingBottom = parseFloat(parentStyles.paddingBottom) || 0;
-
         const maxWidth =
           parentRect.width - parentPaddingLeft - parentPaddingRight;
         const maxHeight =
           parentRect.height - parentPaddingTop - parentPaddingBottom;
-
         /*
          * Soft-clamp strategy: we respect the parent's max size until the
-         * user's cursor actually travels beyond that limit.  As soon as the
+         * user's cursor actually travels beyond that limit. As soon as the
          * drag distance would produce a dimension larger than the container
          * can accommodate we stop clamping and let the element follow the
          * cursor, effectively allowing it to "spill" out of its parent.
          */
         const exceedsWidth = newWidth > maxWidth;
         const exceedsHeight = newHeight > maxHeight;
-
         newWidth = Math.max(
           20,
           exceedsWidth ? newWidth : Math.min(newWidth, maxWidth)
         );
-
         newHeight = Math.max(
           20,
           exceedsHeight ? newHeight : Math.min(newHeight, maxHeight)
@@ -1047,12 +960,10 @@ export default function HoverReceiver() {
         newWidth = Math.max(20, newWidth);
         newHeight = Math.max(20, newHeight);
       }
-
       // Ensure hover box stays hidden during resize
       if (hoverBox) {
         setHoverBox(null);
       }
-
       // Send resize message to parent
       if (focusedElementId) {
         window.parent.postMessage(
@@ -1067,14 +978,12 @@ export default function HoverReceiver() {
         );
       }
     };
-
     const handleMouseUp = () => {
       if (focusedElementRef.current && focusedElementId) {
         const element = focusedElementRef.current;
         const computedStyle = window.getComputedStyle(element);
         const width = parseFloat(computedStyle.width) || element.offsetWidth;
         const height = parseFloat(computedStyle.height) || element.offsetHeight;
-
         // Check if element has max-width/max-height constraints
         const maxWidth = computedStyle.maxWidth;
         const maxHeight = computedStyle.maxHeight;
@@ -1082,12 +991,10 @@ export default function HoverReceiver() {
           maxWidth && maxWidth !== "none" && maxWidth !== "initial";
         const hasMaxHeight =
           maxHeight && maxHeight !== "none" && maxHeight !== "initial";
-
         // Try to use relative units when possible
         const parent = element.parentElement;
         let widthValue = `${Math.round(width)}px`;
         let heightValue = `${Math.round(height)}px`;
-
         if (parent) {
           const parentRect = parent.getBoundingClientRect();
           const parentStyles = window.getComputedStyle(parent);
@@ -1096,16 +1003,13 @@ export default function HoverReceiver() {
           const parentPaddingTop = parseFloat(parentStyles.paddingTop) || 0;
           const parentPaddingBottom =
             parseFloat(parentStyles.paddingBottom) || 0;
-
           const parentInnerWidth =
             parentRect.width - parentPaddingLeft - parentPaddingRight;
           const parentInnerHeight =
             parentRect.height - parentPaddingTop - parentPaddingBottom;
-
           // If the element takes up a significant portion of parent, use percentage
           const widthPercent = (width / parentInnerWidth) * 100;
           const heightPercent = (height / parentInnerHeight) * 100;
-
           // Use percentage if it's a round number or close to common values
           if (
             Math.abs(widthPercent - Math.round(widthPercent)) < 0.1 ||
@@ -1115,7 +1019,6 @@ export default function HoverReceiver() {
           ) {
             widthValue = `${Math.round(widthPercent * 10) / 10}%`;
           }
-
           // For height, be more conservative with percentages (often px is preferred)
           if (
             Math.abs(heightPercent - Math.round(heightPercent)) < 0.1 &&
@@ -1124,25 +1027,20 @@ export default function HoverReceiver() {
             heightValue = `${Math.round(heightPercent)}%`;
           }
         }
-
         // Build styles object
         const styles: Record<string, string> = {};
-
         // Always set a fixed width and height to break out of responsive classes.
         styles.width = widthValue;
         styles.height = heightValue;
-
         // If the element had a max-width constraint (e.g. from `max-w-full`),
         // we update it to the new width to ensure the resize is not capped.
         if (hasMaxWidth) {
           styles.maxWidth = widthValue;
         }
-
         // Same for height.
         if (hasMaxHeight) {
           styles.maxHeight = heightValue;
         }
-
         // Send final dimensions as style change
         const msg: ChildToParent = {
           type: CHANNEL,
@@ -1154,7 +1052,6 @@ export default function HoverReceiver() {
           column: 0,
           className: element.getAttribute("class") || "",
         };
-
         // Extract file info from data-orchids-id
         const orchidsId = element.getAttribute("data-orchids-id");
         if (orchidsId) {
@@ -1165,25 +1062,19 @@ export default function HoverReceiver() {
             msg.column = parsed.column;
           }
         }
-
         window.parent.postMessage(msg, "*");
       }
-
       setIsResizing(false);
       isResizingRef.current = false;
       setResizeHandle(null);
       setResizeStart(null);
-
       // Re-enable pointer events
       document.body.style.pointerEvents = "";
-
       // Clear the last hit element to force re-detection after resize
       lastHitElementRef.current = null;
     };
-
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
-
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
@@ -1194,26 +1085,20 @@ export default function HoverReceiver() {
   const cleanupEditingElement = () => {
     if (editingElementRef.current) {
       const element = editingElementRef.current;
-
       // Immediately clear the ref to prevent any further operations
       editingElementRef.current = null;
-
       // Flush pending style edits first for the same reason described above
       handleStyleBlur(element);
-
       // Now process text changes
       handleTextChange(element);
-
       // Restore child elements if they were protected
       if (element.childElementCount > 0) {
         restoreChildElements(element);
       }
-
       // Only set contentEditable to false if we made it true
       if (!wasEditableRef.current) {
         element.contentEditable = "false";
       }
-
       // Don't restore original styles - keep the applied styles
       // Remove the outline suppression styles only
       const currentStyle = element.getAttribute("style") || "";
@@ -1223,15 +1108,12 @@ export default function HoverReceiver() {
         .trim()
         .replace(/;\s*;/g, ";")
         .replace(/^;|;$/g, "");
-
       if (cleanedStyle) {
         element.setAttribute("style", cleanedStyle);
       } else {
         element.removeAttribute("style");
       }
-
       element.blur();
-
       // Remove event handlers
       const handlers = (element as any)._editHandlers;
       if (handlers) {
@@ -1240,7 +1122,6 @@ export default function HoverReceiver() {
         element.removeEventListener("input", handlers.input);
         delete (element as any)._editHandlers;
       }
-
       wasEditableRef.current = false;
       // Clear the original content reference
       originalContentRef.current = "";
@@ -1250,7 +1131,6 @@ export default function HoverReceiver() {
   // Prevent all navigation in visual edit mode
   useEffect(() => {
     if (!isVisualEditMode) return;
-
     // Prevent link clicks
     const preventLinkClick = (e: Event) => {
       const target = e.target as HTMLElement;
@@ -1260,17 +1140,14 @@ export default function HoverReceiver() {
         e.stopPropagation();
       }
     };
-
     // Prevent form submissions
     const preventFormSubmit = (e: Event) => {
       e.preventDefault();
       e.stopPropagation();
     };
-
     // Add listeners in capture phase to catch events early
     document.addEventListener("click", preventLinkClick, true);
     document.addEventListener("submit", preventFormSubmit, true);
-
     return () => {
       document.removeEventListener("click", preventLinkClick, true);
       document.removeEventListener("submit", preventFormSubmit, true);
@@ -1284,7 +1161,6 @@ export default function HoverReceiver() {
       // Clear applied styles tracking
       appliedStylesRef.current.clear();
       hasStyleChangesRef.current = false;
-
       // Clear image element reference
       focusedImageElementRef.current = null;
     }
@@ -1295,7 +1171,6 @@ export default function HoverReceiver() {
     if (focusedElementRef.current) {
       const handleUpdate = () => {
         updateFocusBox();
-
         if (focusedElementRef.current && focusedElementId) {
           const fr = focusedElementRef.current.getBoundingClientRect();
           const fBox = expandBox(fr);
@@ -1315,14 +1190,11 @@ export default function HoverReceiver() {
           }
         }
       };
-
       window.addEventListener("scroll", handleUpdate, true);
       window.addEventListener("resize", handleUpdate);
-
       // Also observe the focused element for size changes
       const resizeObserver = new ResizeObserver(handleUpdate);
       resizeObserver.observe(focusedElementRef.current);
-
       return () => {
         window.removeEventListener("scroll", handleUpdate, true);
         window.removeEventListener("resize", handleUpdate);
@@ -1339,19 +1211,15 @@ export default function HoverReceiver() {
       }
       // Only track pointer when visual edit mode is active
       if (!isVisualEditModeRef.current) return;
-
       // Don't show hover boxes while scrolling
       if (isScrolling) return;
-
       // Hit-testing at pointer position
       const hit =
         document
           .elementFromPoint(e.clientX, e.clientY)
           ?.closest<HTMLElement>("[data-orchids-id]") ?? null;
-
       if (hit !== lastHitElementRef.current) {
         lastHitElementRef.current = hit;
-
         if (!hit) {
           setHoverBox(null);
           setHoverBoxes([]);
@@ -1359,7 +1227,6 @@ export default function HoverReceiver() {
           lastHitIdRef.current = null;
           // If we were previously focused on an image, ensure its src is flushed
           flushImageSrcChange();
-
           const msg: ChildToParent = {
             type: CHANNEL,
             msg: "HIT",
@@ -1370,26 +1237,20 @@ export default function HoverReceiver() {
           postMessageDedup(msg);
           return;
         }
-
         // Don't show hover box if this is the focused element
         const hitId = hit.getAttribute("data-orchids-id");
-
         // Check if we're already showing boxes for this ID
         if (hitId === lastHitIdRef.current) {
           return;
         }
-
         lastHitIdRef.current = hitId;
-
         const tagName =
           hit.getAttribute("data-orchids-name") || hit.tagName.toLowerCase();
-
         // Update hover boxes immediately for instant feedback
         // Find ALL elements with the same orchids ID
         const allMatchingElements = document.querySelectorAll(
           `[data-orchids-id="${hitId}"]`
         ) as NodeListOf<HTMLElement>;
-
         // Create hover boxes for all matching elements except the focused one
         const boxes: Box[] = [];
         allMatchingElements.forEach((element) => {
@@ -1398,14 +1259,11 @@ export default function HoverReceiver() {
           if (elementId === focusedElementId) {
             return;
           }
-
           const rect = element.getBoundingClientRect();
           boxes.push(expandBox(rect));
         });
-
         // Set multiple hover boxes
         setHoverBoxes(boxes);
-
         // Set single hover box for the primary element (for compatibility)
         // Only set if it's not the focused element
         if (hitId !== focusedElementId) {
@@ -1415,9 +1273,7 @@ export default function HoverReceiver() {
         } else {
           setHoverBox(null);
         }
-
         setHoverTag(tagName);
-
         const msg: ChildToParent = {
           type: CHANNEL,
           msg: "HIT",
@@ -1435,16 +1291,12 @@ export default function HoverReceiver() {
     // Handle pointer leaving the document
     function onPointerLeave() {
       if (!isVisualEditModeRef.current) return;
-
       if (isResizingRef.current) return;
-
       setHoverBox(null);
       setHoverBoxes([]);
       setHoverTag(null);
-
       // Flush image src change when cursor leaves iframe altogether
       flushImageSrcChange();
-
       lastHitElementRef.current = null;
       lastHitIdRef.current = null;
       const msg: ChildToParent = {
@@ -1462,15 +1314,12 @@ export default function HoverReceiver() {
       if (isResizingRef.current) return;
       // Only handle if visual edit mode is active
       if (!isVisualEditModeRef.current) return;
-
       const hit = (e.target as HTMLElement)?.closest<HTMLElement>(
         "[data-orchids-id]"
       );
-
       if (hit && isTextEditable(hit)) {
         // Store whether it was already editable
         wasEditableRef.current = hit.contentEditable === "true";
-
         // Make element editable BEFORE the click goes through
         if (!wasEditableRef.current) {
           // Apply inline styles to remove focus ring
@@ -1479,9 +1328,7 @@ export default function HoverReceiver() {
             "style",
             `${currentStyle}; outline: none !important; box-shadow: none !important;`
           );
-
           hit.contentEditable = "true";
-
           // If the element has children, protect them from being edited
           if (hit.childElementCount > 0) {
             protectChildElements(hit);
@@ -1495,44 +1342,35 @@ export default function HoverReceiver() {
       if (isResizingRef.current) return;
       // Only handle if visual edit mode is active
       if (!isVisualEditModeRef.current) return;
-
       // Debounce rapid clicks
       const now = Date.now();
       if (now - lastClickTimeRef.current < 100) {
         return; // Ignore clicks within 100ms of each other
       }
       lastClickTimeRef.current = now;
-
       const target = e.target as HTMLElement;
       const hit = target.closest<HTMLElement>("[data-orchids-id]");
-
       if (hit) {
         const tagName =
           hit.getAttribute("data-orchids-name") || hit.tagName.toLowerCase();
-
         const hitId = hit.getAttribute("data-orchids-id");
         const isEditable = isTextEditable(hit);
-
         // Always prevent default for non-text interactions
         const isLink = hit.tagName.toLowerCase() === "a" || !!hit.closest("a");
         const isButton =
           hit.tagName.toLowerCase() === "button" ||
           hit.getAttribute("role") === "button";
-
         // Prevent navigation and button actions
         if (isLink || isButton || !isEditable) {
           e.preventDefault();
           e.stopPropagation();
         }
-
         // Capture previously focused element before updating
         const prevFocused = focusedElementRef.current;
-
         // Update focused element
         focusedElementRef.current = hit;
         setFocusedElementId(hitId);
         setFocusTag(tagName);
-
         // Save focused element info to localStorage
         if (hitId && typeof window !== "undefined") {
           const focusedElementData = {
@@ -1544,12 +1382,10 @@ export default function HoverReceiver() {
             JSON.stringify(focusedElementData)
           );
         }
-
         // Find ALL other elements with the same orchids ID and show hover boxes
         const allMatchingElements = document.querySelectorAll(
           `[data-orchids-id="${hitId}"]`
         ) as NodeListOf<HTMLElement>;
-
         // Create hover boxes for all matching elements except the focused one
         const boxes: Box[] = [];
         allMatchingElements.forEach((element) => {
@@ -1557,28 +1393,23 @@ export default function HoverReceiver() {
           if (element === hit) {
             return;
           }
-
           const rect = element.getBoundingClientRect();
           boxes.push(expandBox(rect));
         });
-
         // Set hover boxes for other matching elements
         setHoverBoxes(boxes);
         // Set the hover tag to show on other elements
         if (boxes.length > 0) {
           setHoverTag(tagName);
         }
-
         // Track image element specifically
         if (hit.tagName.toLowerCase() === "img") {
           focusedImageElementRef.current = hit as HTMLImageElement;
         } else {
           focusedImageElementRef.current = null;
         }
-
         // Store original styles for the focused element
         originalStylesRef.current = getCurrentStyles(hit);
-
         // If this is an editable element, set it up
         if (isEditable) {
           // Cancel any pending cleanup
@@ -1586,14 +1417,12 @@ export default function HoverReceiver() {
             clearTimeout(pendingCleanupRef.current);
             pendingCleanupRef.current = null;
           }
-
           // Clean up any previous editing element first
           if (editingElementRef.current && editingElementRef.current !== hit) {
             // Force blur on the previous element to trigger handlers
             editingElementRef.current.blur();
             cleanupEditingElement();
           }
-
           // Only set up if this is a new element
           if (hit !== editingElementRef.current) {
             editingElementRef.current = hit;
@@ -1604,18 +1433,15 @@ export default function HoverReceiver() {
               originalContentRef.current =
                 hit.innerText || hit.textContent || "";
             }
-
             // Create handlers with current element reference
             const createHandlers = (element: HTMLElement) => {
               const handleFocus = () => {
                 // Double-check this is still the editing element
                 if (element !== editingElementRef.current) return;
-
                 // If the user applied inline style edits **before** entering text
                 // editing mode, make sure we commit them right away so that the
                 // subsequent text edits operate on the updated source.
                 handleStyleBlur(element);
-
                 // Update original content - for elements with children, only store direct text
                 if (element.childElementCount > 0) {
                   originalContentRef.current =
@@ -1624,15 +1450,12 @@ export default function HoverReceiver() {
                   originalContentRef.current =
                     element.innerText || element.textContent || "";
                 }
-
                 // Style blur above resets the flag – keep it in sync.
                 hasStyleChangesRef.current = false;
               };
-
               const handleBlur = () => {
                 // Double-check this is still the editing element
                 if (element !== editingElementRef.current) return;
-
                 // Flush style changes *before* text changes so that the style
                 // update is committed with the original line/column offsets.
                 // A subsequent text update may shift the source code which would
@@ -1640,22 +1463,18 @@ export default function HoverReceiver() {
                 handleStyleBlur(element);
                 handleTextChange(element);
               };
-
               const handleInput = () => {
                 // Double-check this is still the editing element
                 if (element !== editingElementRef.current) return;
                 // Optionally handle real-time updates
                 // handleTextChange(element);
               };
-
               return { handleFocus, handleBlur, handleInput };
             };
-
             const handlers = createHandlers(hit);
             hit.addEventListener("focus", handlers.handleFocus);
             hit.addEventListener("blur", handlers.handleBlur);
             hit.addEventListener("input", handlers.handleInput);
-
             // Store handlers for cleanup
             (hit as any)._editHandlers = {
               focus: handlers.handleFocus,
@@ -1664,31 +1483,24 @@ export default function HoverReceiver() {
             };
           }
         }
-
         // Update focus box with expanded dimensions
         const r = hit.getBoundingClientRect();
         const expandedBox = expandBox(r);
         setFocusBox(expandedBox);
-
         // Clear hover box since we're focusing
         setHoverBox(null);
-
         // Get className for Tailwind extraction
         const className = hit.getAttribute("class") || "";
-
         // Get src for images & track original
         const srcRaw =
           hit.tagName.toLowerCase() === "img"
             ? (hit as HTMLImageElement).src
             : undefined;
-
         if (srcRaw) {
           originalSrcRef.current = normalizeImageSrc(srcRaw);
         }
-
         // Get current styles immediately
         const computedStyles = getCurrentStyles(hit);
-
         // Send click event to parent with coordinates and current styles
         const msg: ChildToParent = {
           type: CHANNEL,
@@ -1717,20 +1529,16 @@ export default function HoverReceiver() {
           className,
           src: srcRaw,
         };
-
         // Send message with all data at once
         postMessageDedup(msg);
-
         // Move cleanup operations to after message is sent
         setTimeout(() => {
           // Before changing focus, flush pending image src change
           flushImageSrcChange();
-
           // Flush style changes for the previously focused element (if any)
           if (prevFocused && prevFocused !== hit) {
             handleStyleBlur(prevFocused);
           }
-
           // Clean up any previous editing element (if it's different)
           if (editingElementRef.current && editingElementRef.current !== hit) {
             cleanupEditingElement();
@@ -1744,7 +1552,6 @@ export default function HoverReceiver() {
           flushImageSrcChange();
           handleStyleBlur(focusedElementRef.current);
           cleanupEditingElement();
-
           // Clear all focus and hover states
           focusedElementRef.current = null;
           setFocusedElementId(null);
@@ -1753,12 +1560,10 @@ export default function HoverReceiver() {
           setHoverBox(null);
           setHoverBoxes([]);
           setHoverTag(null);
-
           // Clear focused element from localStorage
           if (typeof window !== "undefined") {
             localStorage.removeItem(FOCUSED_ELEMENT_KEY);
           }
-
           // Notify parent that focus was cleared
           const msg: ChildToParent = {
             type: CHANNEL,
@@ -1787,21 +1592,17 @@ export default function HoverReceiver() {
     // Handle messages from parent
     function onMsg(e: MessageEvent<ParentToChild>) {
       if (e.data?.type !== CHANNEL) return;
-
       // Handle preview font request from parent
       if (e.data.msg === "PREVIEW_FONT" && "elementId" in e.data) {
         const { elementId, fontFamily } = e.data;
-
         // Skip if font already persisted for this element to avoid race condition
         if (persistentFontMap.current.has(elementId)) {
           return;
         }
-
         const element = document.querySelector(
           `[data-orchids-id="${elementId}"]`
         ) as HTMLElement | null;
         if (!element) return;
-
         // Ensure font stylesheet is loaded
         const familyKey = fontFamily.replace(/\s+/g, "+");
         if (!loadedFontFamilies.current.has(familyKey)) {
@@ -1811,45 +1612,36 @@ export default function HoverReceiver() {
           document.head.appendChild(link);
           loadedFontFamilies.current.add(familyKey);
         }
-
         // Apply font family to element inline for preview
         element.style.fontFamily = `'${fontFamily}', sans-serif`;
         return;
       }
-
       // Handle scroll messages from parent
       if (e.data.msg === "SCROLL" && "dx" in e.data && "dy" in e.data) {
         window.scrollBy(e.data.dx, e.data.dy);
       }
-
       // Handle visual edit mode state changes
       if (e.data.msg === "VISUAL_EDIT_MODE" && "active" in e.data) {
         const newMode = e.data.active;
         setIsVisualEditMode(newMode);
-
         // Clear localStorage if visual edit mode is being turned off
         if (!newMode && typeof window !== "undefined") {
           localStorage.removeItem(VISUAL_EDIT_MODE_KEY);
           localStorage.removeItem(FOCUSED_ELEMENT_KEY);
         }
-
         // Send acknowledgement back to parent so it knows we received the mode change
         window.parent.postMessage(
           { type: CHANNEL, msg: "VISUAL_EDIT_MODE_ACK", active: newMode },
           "*"
         );
-
         if (!newMode) {
           // already handled, flush too
           // Flush image src change for current focus
           flushImageSrcChange();
-
           // Clean up any editing element
           cleanupEditingElement();
-
           // Clear image element reference
           focusedImageElementRef.current = null;
-
           // Clear everything when exiting visual edit mode
           setHoverBox(null);
           setHoverBoxes([]);
@@ -1858,10 +1650,8 @@ export default function HoverReceiver() {
           lastHitElementRef.current = null;
           focusedElementRef.current = null;
           hasStyleChangesRef.current = false;
-
           setHoverTag(null);
           setFocusTag(null);
-
           // Notify parent that we've cleared the selection
           const msg: ChildToParent = {
             type: CHANNEL,
@@ -1873,14 +1663,12 @@ export default function HoverReceiver() {
           postMessageDedup(msg);
         }
       }
-
       // Handle clear inline styles message
       if (e.data.msg === "CLEAR_INLINE_STYLES" && "elementId" in e.data) {
         // Find ALL elements with the same orchids ID
         const allMatchingElements = document.querySelectorAll(
           `[data-orchids-id="${e.data.elementId}"]`
         ) as NodeListOf<HTMLElement>;
-
         allMatchingElements.forEach((element) => {
           // Clear only the inline styles we track (typography, spacing, and background)
           const stylesToClear = [
@@ -1901,52 +1689,42 @@ export default function HoverReceiver() {
             "backgroundColor",
             "backgroundImage",
           ];
-
           stylesToClear.forEach((prop) => {
             (element.style as any)[prop] = "";
           });
         });
-
         // Clear from our tracking
         appliedStylesRef.current.delete(e.data.elementId);
       }
-
       // Handle show element hover message
       if (e.data.msg === "SHOW_ELEMENT_HOVER" && "elementId" in e.data) {
         const { elementId } = e.data;
-
         if (!elementId) {
           // Clear hover boxes if no element ID
           setHoverBoxes([]);
           setHoverTag(null);
           return;
         }
-
         // Find ALL elements with the same orchids ID
         const allMatchingElements = document.querySelectorAll(
           `[data-orchids-id="${elementId}"]`
         ) as NodeListOf<HTMLElement>;
-
         if (allMatchingElements.length > 0) {
           const boxes: Box[] = [];
           let tagName = "";
-
           allMatchingElements.forEach((element) => {
             // Skip if this element is the focused one
             if (element === focusedElementRef.current) {
               return;
             }
-
             const rect = element.getBoundingClientRect();
             boxes.push(expandBox(rect));
-
             if (!tagName) {
               tagName =
                 element.getAttribute("data-orchids-name") ||
                 element.tagName.toLowerCase();
             }
           });
-
           // Set hover boxes for all matching elements
           setHoverBoxes(boxes);
           setHoverTag(boxes.length > 0 ? tagName : null);
@@ -1959,19 +1737,16 @@ export default function HoverReceiver() {
       if (isResizingRef.current) return;
       // Only update hover box if visual edit mode is active
       if (!isVisualEditModeRef.current) return;
-
       // Hide hover boxes while scrolling
       setIsScrolling(true);
       setHoverBox(null);
       setHoverBoxes([]);
-
       // Notify parent that scrolling has started
       const scrollMsg: ChildToParent = {
         type: CHANNEL,
         msg: "SCROLL_STARTED",
       };
       postMessageDedup(scrollMsg);
-
       // Reset the notification flag after scrolling stops
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
@@ -1995,7 +1770,6 @@ export default function HoverReceiver() {
     document.addEventListener("click", onClickCapture, { capture: true });
     window.addEventListener("message", onMsg);
     window.addEventListener("scroll", onScroll, true);
-
     return () => {
       document.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("pointerleave", onPointerLeave);
@@ -2044,7 +1818,6 @@ export default function HoverReceiver() {
             ))}
         </>
       )}
-
       {/* Focus box - shows on click with just border, no overlay */}
       {isVisualEditMode && focusBox && (
         <>
@@ -2060,7 +1833,6 @@ export default function HoverReceiver() {
               {focusTag}
             </div>
           )}
-
           <div
             className="fixed pointer-events-none border-[1.5px] border-[#38bdf8] rounded-sm"
             style={{
@@ -2071,7 +1843,6 @@ export default function HoverReceiver() {
               height: focusBox.height,
             }}
           />
-
           {/* Resize handles */}
           {!isResizing && (
             <>
@@ -2112,7 +1883,6 @@ export default function HoverReceiver() {
                 }}
                 onMouseDown={(e) => handleResizeStart(e, "se")}
               />
-
               {/* Edge handles */}
               <div
                 className="fixed w-2 h-2 bg-[#38bdf8] rounded-full cursor-n-resize pointer-events-auto resize-handle"
