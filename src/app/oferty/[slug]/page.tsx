@@ -7,8 +7,9 @@ import Navigation from "@/components/sections/navigation";
 import Footer from "@/components/sections/footer";
 import { Gallery } from "@/components/offer/gallery";
 
-export default function OfferDetailPage({ params }: {params: {slug: string;};}) {
-  const offer = findOfferBySlug(params.slug);
+export default async function OfferDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const offer = findOfferBySlug(slug);
   if (!offer) return notFound();
 
   return (
@@ -16,7 +17,7 @@ export default function OfferDetailPage({ params }: {params: {slug: string;};}) 
       <Navigation />
       <main className="container mx-auto flex-1 px-4 py-10">
         <div className="mb-4 flex items-center justify-end">
-          <PrintToPdfButton fileName={`${offer.offerNo}.pdf`} slug={params.slug} targetId="offer-pdf" />
+          <PrintToPdfButton fileName={`${offer.offerNo}.pdf`} slug={slug} targetId="offer-pdf" />
         </div>
         <div id="offer-pdf" className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left column: info */}
@@ -144,6 +145,6 @@ export default function OfferDetailPage({ params }: {params: {slug: string;};}) 
         </div>
       </main>
       <Footer />
-    </div>);
-
+    </div>
+  );
 }
