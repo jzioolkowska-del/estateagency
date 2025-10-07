@@ -8,7 +8,6 @@ export const przestrzonneMieszkanieRodzinne: Offer = {
   price: "368 560 zł",
   title: "Nowe mieszkanie z balkonem – os. Robińskich 8, Krotoszyn",
   location: "Krotoszyn",
-  category: "mieszkania",
   bedrooms: 2,
   bathrooms: 1,
   totalRooms: 3,
