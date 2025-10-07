@@ -2,21 +2,18 @@ import { Offer } from "../data";
 
 export const nowoczesnyLoftWKamienicy: Offer = {
   slug: "nowoczesny-loft-w-kamienicy",
-  image: "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/a6502a88-7830-485c-91fe-8b90a7a462fe.webp",
-  alt: "Nowy apartament os. Botanika Krotoszyn",
-  type: "Mieszkanie",
-  price: "661 320 zł",
-  title: "Nowy apartament os. Botanika Krotoszyn",
-  location: "Krotoszyn",
-  category: "mieszkania",
-  bedrooms: 2,
+  image: "/images/property-6.jpg",
+  alt: "Nowoczesny loft w kamienicy",
+  type: "Loft",
+  price: "620 000 zł",
+  title: "Nowoczesny loft w kamienicy",
+  location: "Warszawa - Praga",
+  bedrooms: 1,
   bathrooms: 1,
-  totalRooms: 3,
-  area: 75.15,
+  area: 85,
   floor: 3,
-  pricePerM2: "8 800 zł/m²",
-  yearBuilt: 2024,
-  addDate: "Dodano 4 miesiące temu",
+  pricePerM2: "7 294 zł/m²",
+  offerNo: "AP-006",
   gallery: [
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/a6502a88-7830-485c-91fe-8b90a7a462fe.webp",
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/image.webp",
@@ -74,5 +71,5 @@ KUPUJĄCY NIE PŁACI PROWIZJI !
 KUPUJĄCY NIE PŁACI VAT !
 
 Niniejsze ogłoszenie ma charakter wyłącznie informacyjny i nie stanowi oferty w rozumieniu przepisu art. 66 Kodeksu Cywilnego.`,
-  offerNo: "NR-005791"
+  offerNo: "AP-006"
 };
