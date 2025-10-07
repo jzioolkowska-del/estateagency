@@ -5,7 +5,7 @@ import { nowoczesneMieszkanieWCentrum } from "./data/nowoczesne-mieszkanie-w-cen
 import { eleganckiApartamentZTarasem } from "./data/elegancki-apartament-z-tarasem";
 import { luksusowyPenthouse } from "./data/luksusowy-penthouse";
 import { przestrzonneMieszkanieRodzinne } from "./data/przestronne-mieszkanie-rodzinne";
-import { stowyApartamentPrzyParku } from "./data/stylowy-apartament-przy-parku";
+import { stylowyApartamentPrzyParku } from "./data/stylowy-apartament-przy-parku";
 import { nowoczesnyLoftWKamienicy } from "./data/nowoczesny-loft-w-kamienicy";
 import { dzialkiBudowlanePolnaKrotoszyn } from "./data/dzialki-budowlane-polna-krotoszyn";
 import { nieruchomoscGruntowaKozminWlkp } from "./data/nieruchomosc-gruntowa-kozmin-wlkp";
@@ -51,7 +51,7 @@ export const properties: Offer[] = [
   eleganckiApartamentZTarasem,
   luksusowyPenthouse,
   przestrzonneMieszkanieRodzinne,
-  stowyApartamentPrzyParku,
+  stylowyApartamentPrzyParku,
   nowoczesnyLoftWKamienicy,
   dzialkiBudowlanePolnaKrotoszyn,
   nieruchomoscGruntowaKozminWlkp,
