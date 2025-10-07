@@ -2,8 +2,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { findOfferBySlug } from "@/app/oferty/data";
 
-export default function OfferGalleryPage({ params }: { params: { slug: string } }) {
-  const offer = findOfferBySlug(params.slug);
+export default async function OfferGalleryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const offer = findOfferBySlug(slug);
   if (!offer) return notFound();
 
   const images = offer.gallery && offer.gallery.length > 0
