@@ -1,4 +1,4 @@
-import type { Offer } from "../types.js";
+import type { Offer } from "../types";
 
 export const lokalUslugowy: Offer = {
   slug: "lokal-uslugowy-kozmin-wlkp",
@@ -20,13 +20,10 @@ Lokal o łącznej powierzchni 36 m2
 Sala sprzedaży - 23 m2
 Pomieszczenie gospodarcze - 6 m2
 WC - 7 m2
-
 Rachunki według zużycia, ogrzewanie elektryczne.
 Lokal odświeżony, dostępny od zaraz.
-
 Cena - 1450 zł do ewentualnych negocjacji.
 Najemca nie płaci prowizji !
-
 Zapraszam do kontaktu.`,
   gallery: [
     "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/image-1759623370622.png",
