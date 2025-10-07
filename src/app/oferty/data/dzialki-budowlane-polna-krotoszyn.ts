@@ -1,4 +1,4 @@
-import type { Offer } from "../types.js";
+import type { Offer } from "../data";
 
 export const dzialkiBudowlanePolnaKrotoszyn: Offer = {
   slug: "dzialki-budowlane-polna-krotoszyn",
@@ -10,6 +10,7 @@ export const dzialkiBudowlanePolnaKrotoszyn: Offer = {
   location: "Lutogniew",
   bedrooms: 0,
   bathrooms: 0,
+  floor: 0,
   area: 1427,
   pricePerM2: "140 zł/m²",
   offerNo: "DZ-001",
