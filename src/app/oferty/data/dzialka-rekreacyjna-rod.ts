@@ -1,4 +1,4 @@
-import type { Offer } from "../types.js";
+import type { Offer } from "../data";
 
 export const dzialkaRekreacyjnaRod: Offer = {
   slug: "dzialka-rekreacyjna-rod",
@@ -10,6 +10,7 @@ export const dzialkaRekreacyjnaRod: Offer = {
   location: "Krotoszyn",
   bedrooms: 0,
   bathrooms: 0,
+  floor: 0,
   area: 440,
   pricePerM2: "95.45 zł/m²",
   offerNo: "DZ-005",
