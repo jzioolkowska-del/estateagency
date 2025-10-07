@@ -24,10 +24,10 @@ export const PrintToPdfButton: React.FC<PrintToPdfButtonProps> = ({
 
     try {
       // Hide non-offer elements for clean PDF
-      const nav = document.querySelector('nav') || document.querySelector('header');
-      const footer = document.querySelector('footer');
-      const sidebar = document.querySelector('aside');
-      const buttonContainer = document.querySelector('.mb-4.flex.items-center.justify-end');
+      const nav = (document.querySelector('nav') || document.querySelector('header')) as HTMLElement | null;
+      const footer = document.querySelector('footer') as HTMLElement | null;
+      const sidebar = document.querySelector('aside') as HTMLElement | null;
+      const buttonContainer = document.querySelector('.mb-4.flex.items-center.justify-end') as HTMLElement | null;
 
       const originalNavDisplay = nav ? nav.style.display : null;
       const originalFooterDisplay = footer ? footer.style.display : null;
