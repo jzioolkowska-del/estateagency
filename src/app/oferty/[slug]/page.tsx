@@ -40,12 +40,6 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ sl
                 <p className="text-sm text-muted-foreground">Rodzaj oferty</p>
                 <p className="font-medium lowercase first-letter:uppercase">{offer.type}</p>
               </div>
-              {offer.category &&
-              <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Kategoria</p>
-                <p className="font-medium">{offer.category}</p>
-              </div>
-              }
               <div className="space-y-1">
                 <p className="text-sm text-muted-foreground">Powierzchnia</p>
                 <p className="font-medium">{offer.area} m²</p>
@@ -54,12 +48,6 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ sl
               <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">Sypialnie</p>
                   <p className="font-medium">{offer.bedrooms}</p>
-                </div>
-              }
-              {offer.totalRooms > 0 &&
-              <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">Razem pokoi</p>
-                  <p className="font-medium">{offer.totalRooms}</p>
                 </div>
               }
               {offer.floor !== undefined &&
@@ -78,12 +66,6 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ sl
               <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">Łazienki</p>
                   <p className="font-medium">{offer.bathrooms}</p>
-                </div>
-              }
-              {offer.yearBuilt &&
-              <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">Rok budowy</p>
-                  <p className="font-medium">{offer.yearBuilt}</p>
                 </div>
               }
               {offer.addDate &&
