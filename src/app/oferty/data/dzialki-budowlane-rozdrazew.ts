@@ -1,4 +1,4 @@
-import type { Offer } from "../types.js";
+import type { Offer } from "../data";
 
 export const dzialkiBudowlaneRozdrazew: Offer = {
   slug: "dzialki-budowlane-rozdrazew",
@@ -10,6 +10,7 @@ export const dzialkiBudowlaneRozdrazew: Offer = {
   location: "Rozdrażew",
   bedrooms: 0,
   bathrooms: 0,
+  floor: 0,
   area: 634,
   pricePerM2: "145 zł/m²",
   offerNo: "DZ-006",
@@ -38,7 +39,7 @@ market biedronka – 960 m
 
  
 
-Zapraszam do kontaktu
+Zapraszam do kontakt
 +48 698 474 320
 
 Niniejsze ogłoszenie ma charakter wyłącznie informacyjny i nie stanowi oferty w rozumieniu przepisu art. 66 Kodeksu Cywilnego.`,
