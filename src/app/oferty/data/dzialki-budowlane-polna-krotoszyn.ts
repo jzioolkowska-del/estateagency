@@ -8,13 +8,10 @@ export const dzialkiBudowlanePolnaKrotoszyn: Offer = {
   price: "199 780 zł",
   title: "Lutogniew ul. Polna – działki budowlane",
   location: "Lutogniew",
-  category: "działki",
   bedrooms: 0,
   bathrooms: 0,
   area: 1427,
   pricePerM2: "140 zł/m²",
-  yearBuilt: 2026,
-  addDate: "Dodano 2 dni temu",
   offerNo: "DZ-001",
   description: `Na sprzedaż działki budowlane – Lutogniew, ul. Polna, gm. Krotoszyn           
 
