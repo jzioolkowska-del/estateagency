@@ -1,4 +1,21 @@
-import type { Offer } from "../types.js";
+// Temporary inline type definition - remove once src/app/oferty/types.ts is created
+type Offer = {
+  slug: string;
+  image: string;
+  alt: string;
+  type: string;
+  price: string;
+  title: string;
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  floor?: number;
+  pricePerM2: string;
+  offerNo: string;
+  description: string;
+  gallery: string[];
+};
 
 export const nowoczesnyLoftWKamienicy: Offer = {
   slug: "nowoczesny-loft-w-kamienicy",
@@ -37,14 +54,10 @@ export const nowoczesnyLoftWKamienicy: Offer = {
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/wizualizacja-bot1.webp"
   ],
   description: `SPRZEDANE !
-
 NOWY apartament os. Botanika Krotoszyn
-
 Oferuję Państwu nowy apartament / mieszkanie w stanie deweloperskim premium o powierzchni użytkowej 75.15 m2.
 Botanica Residence położona jest w granicy miasta Krotoszyna przy ulicy Gajowej. Jest to rejon, który ze względu na bliskie położenie względem centrum miasta, podlega bardzo szybkim przekształceniom urbanizacyjnym.
-
 Wyjątkowy charakter inwestycji zapewnia przestrzeń wspólna, zaprojektowana z myślą o odpoczynku. Dla mieszkańców dostępne będą: zewnętrzna strefa relaksu, plac zabaw, naturalny staw kąpielowy z częścią bagienną, liczna mała architektura oraz duża różnorodność roślinności rodzimej, skomponowaną tak, aby stworzyć naturalną przestrzeń do odpoczynku.
-
 Nieruchomość usytuowana jest na najwyższym trzecim piętrzę, co zapewnia dodatkowy komfort na przestronnym tarasie oraz piękny widok.
 Na mieszkanie składa się:
 - przestronny salon z kuchnią i wyjściem na taras (24.37 m2)
@@ -53,7 +66,6 @@ Na mieszkanie składa się:
 - łazienki (8.71 m2)
 - korytarza w wnęką na szafę (4.49 m2)
 - przedpokoju (4.58 m2)
-
 Na standard deweloperski premium składa się:
 - rolety elektryczne w kolorze stolarki okiennej
 - grafitowe okna do podłogi
@@ -62,14 +74,10 @@ Na standard deweloperski premium składa się:
 - rozbudowana instalacja hydrauliczna, elektryczna, teletechniczna, alarmowa
 - przygotowana instalacja do klimatyzacji
 - duży taras z oświetleniem o powierzchni 17 m2, wykończony deską tarasową - idealny na poranną kawę latem
-
 Dodatkowo do sprzedaży dwa miejsca postojowe w garażu podziemnym. W skład jednego miejsca postojowego wchodzi duży box / skrytka (7.5 m2)
 Cena parkingu w garażu podziemnym 50 tyś zł.
 Cena parkingu w garażu podziemnym + box / skrytka (7.5m2) 60 tyś zł.
-
 KUPUJĄCY NIE PŁACI PROWIZJI !
 KUPUJĄCY NIE PŁACI VAT !
-
-Niniejsze ogłoszenie ma charakter wyłącznie informacyjny i nie stanowi oferty w rozumieniu przepisu art. 66 Kodeksu Cywilnego.`,
-  offerNo: "AP-006"
+Niniejsze ogłoszenie ma charakter wyłącznie informacyjny i nie stanowi oferty w rozumieniu przepisu art. 66 Kodeksu Cywilnego.`
 };
