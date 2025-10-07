@@ -8,12 +8,10 @@ export const dzialkaRolnaBudowlanaGorzupska: Offer = {
   price: "709 280 zł",
   title: "Krotoszyn – ul. Gorzupska działka rolna / budowlana",
   location: "Krotoszyn",
-  category: "działki",
   bedrooms: 0,
   bathrooms: 0,
   area: 5456,
   pricePerM2: "130 zł/m²",
-  addDate: "Dodano 8 miesięcy temu",
   offerNo: "DZ-009",
   description: `Krotoszyn - ul. Gorzupska działka rolna / budowlana                           
 
