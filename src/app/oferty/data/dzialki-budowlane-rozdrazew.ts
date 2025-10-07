@@ -8,7 +8,6 @@ export const dzialkiBudowlaneRozdrazew: Offer = {
   price: "91 785 zł",
   title: "Rozdrażew – działki budowlane REZERWACJA",
   location: "Rozdrażew",
-  category: "działki",
   bedrooms: 0,
   bathrooms: 0,
   area: 634,
