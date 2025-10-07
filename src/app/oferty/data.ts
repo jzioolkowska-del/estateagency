@@ -14,7 +14,7 @@ export interface Offer {
   bathrooms?: number;
   totalRooms?: number;
   area: number;
-  floor: number;
+  floor?: number;
   pricePerM2: string;
   yearBuilt?: number;
   addDate?: string;
