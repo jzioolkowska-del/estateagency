@@ -1,6 +1,6 @@
 import { Offer } from "../data";
 
-export const stowyApartamentPrzyParku: Offer = {
+export const stylowyApartamentPrzyParku: Offer = {
   slug: "stylowy-apartament-przy-parku",
   image: "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/MPKR_02_PE-1-scaled.webp",
   alt: "Nowe mieszkanie z ogródkiem – os. Robińskich 8, Krotoszyn",
@@ -8,15 +8,12 @@ export const stowyApartamentPrzyParku: Offer = {
   price: "424 880 zł",
   title: "Nowe mieszkanie z ogródkiem – os. Robińskich 8, Krotoszyn",
   location: "Krotoszyn",
-  category: "mieszkania",
   bedrooms: 2,
   bathrooms: 1,
-  totalRooms: 3,
   area: 53.11,
   floor: 0,
   pricePerM2: "8 000 zł/m²",
-  yearBuilt: 2026,
-  addDate: "Dodano 2 tygodnie temu",
+  offerNo: "NR-003579",
   gallery: [
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/MPKR_02_PE-1-scaled.webp",
     "https://tacurodzkkmfyjgkzqya.supabase.co/storage/v1/object/public/Mieskania/dji_fly_20250718_180302_70_1752854604672_photo_optimized-1-scaled%20(1).webp",
@@ -37,7 +34,7 @@ salon z aneksem kuchennym – przestronny i jasny, z wyjściem do ogródka,
 korytarz z miejscem na szafę w zabudowie.
 
 Atuty nieruchomości:
-ogród o powierzchni 91 m² – ogrodzony siatką, pięknie nasłoneczniony, idealny na relaks i spotkania na świeżym powietrzu,
+ogród o powierzchni 91 m² – ogrodzony siatką, pięknie nasłonechniony, idealny na relaks i spotkania na świeżym powietrzu,
 
 winda w budynku,
 
@@ -51,6 +48,5 @@ monitoring oraz zamknięty teren osiedla zapewniający bezpieczeństwo i komfort
 
 Mieszkanie zostanie oddane do użytku latem 2026 roku.
 
-To doskonała propozycja dla osób szukających komfortu nowoczesnego mieszkania z dużym ogrodem w spokojnej i dobrze skomunikowanej części Krotoszyna.`,
-  offerNo: "NR-003579"
+To doskonała propozycja dla osób szukających komfortu nowoczesnego mieszkania z dużym ogrodem w spokojnej i dobrze skomunikowanej części Krotoszyna.`
 };
